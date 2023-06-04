@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>DTINotes</title>
+</head>
+
+<body>
+    <main>
+        <div class="principal-content">
+            <h1 class="principal-content-title">Crie seu novo lembrete:</h1>
+
+            <label class="principal-content-name" for="name">Nome do lembrete:</label>
+            <input class="principal-content-name-input" type="text" id="name" name="name" required />
+
+            <label class="principal-content-date" for="date">Data do lembrete:</label>
+            <input class="principal-content-date-input" type="date" id="date" name="date" required>
+        </div>
+
+        <button class="principal-content-add-button" id="add-new-note">Criar</button>
+
+        <div class="secundary-content-list">
+            <h2>Lista de Lembretes:</h2>
+            <div id="note-list"></div>
+        </div>
+    </main>
+</body>
+    
+</html>
+
