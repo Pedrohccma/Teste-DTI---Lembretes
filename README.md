@@ -25,6 +25,7 @@ O sistema foi desenvolvido para o desafio técnico realizado pela DTI Digital. N
 - A estilização foi feita em JavaScript, Html e CSS, devido a maior praticidade e familiaridade do individuo responsável pela confecção do projeto
 - Por uma questão de estética e maior conforto/acessibilidade do usuãrio, escolheu-se adicionar swal's com textos informativos sobre a necessidade de preenchimento dos campos obrigatórios
 - Foi feito o uso de uma variável Id que permitiu um controle mais fácil do processo de criação dos lembretes, assim como sua identificação e de possíveis erros 
+- Utilização do XUnit para realização de testes unitários (A função escolhida foi a de criação de Id's dos lembretes(Necessário tornar a função pública!))
 
 ## Pontos de melhoria
 - Elaborar mais testes no back e front-end
