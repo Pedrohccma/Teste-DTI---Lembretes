@@ -28,7 +28,7 @@ namespace LembretesDTI.Controllers
 
             var date = DateTime.Parse(Request.Form["date"][0]);
 
-            int id = IdCreation();
+            int id = IdCreation(Notes);
 
             Note note = new() { Id = id, Name = name, Date = date };
 
@@ -54,7 +54,7 @@ namespace LembretesDTI.Controllers
 
         #region Métodos Privados
 
-        private static int IdCreation()
+        public static int IdCreation(List<Note>Notes)
         {
             int id = 0;
             int count = Notes.Count;
