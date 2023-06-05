@@ -8,16 +8,18 @@ namespace TesteUnitário
     public class TesteUnitárioId
     {
         [Fact]
-        public void TestIdCreatorQuandoAListaDeNotasEstaVazia()
+        public void TestIdCreatorEmptyList()
         {
+            //Teste averigua se em uma lista vazia a função cria o id = 1!
             List<Note> Notes = new List<Note>();
 
             Assert.Equal(1, NoteController.IdCreation(Notes));
         }
 
         [Fact]
-        public void TestAddNote()
+        public void TestIdCreationSecondPosition()
         {
+            //Teste averigua se em uma lista que ja contem o id = 1 o id = 2 será criado!
             List<Note> Notes = new List<Note>();
 
             Notes.Add(new Note { Id = 1, Name = "teste", Date = DateTime.Now });
@@ -26,10 +28,11 @@ namespace TesteUnitário
         }
 
         [Fact]
-        public void TestRemoverPosicao1() {
+        public void TestRemovePosition() {
 
             List<Note> Notes = new List<Note>();
 
+            //Teste averigua se caso a posição 1 e 0 sejam removidas a função criará as proximas posições com o id correto!
             Notes.Add(new Note { Id = 1, Name = "teste", Date = DateTime.Now });
             Notes.Add(new Note { Id = 2, Name = "teste2", Date = DateTime.Now });
             Notes.RemoveAt(1);
