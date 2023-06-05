@@ -29,6 +29,7 @@ O sistema foi desenvolvido para o desafio técnico realizado pela DTI Digital. N
 ## Pontos de melhoria
 - Elaborar mais testes no back e front-end
 - Clean code
+- Acessibilidade
 
 ## Instruções para executar o Sistema:
 1 - Deve-se clonar o projeto através do link: https://github.com/Pedrohccma/Teste-DTI---Lembretes.git , ou inicializar o código utilizando o Microsoft Visual Studio
