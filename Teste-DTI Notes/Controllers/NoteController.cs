@@ -14,7 +14,6 @@ namespace LembretesDTI.Controllers
             return Notes;
         }
 
-        //Adicao novo lembrete
         [HttpPost]
         public ActionResult AddNotes() {
 
@@ -39,7 +38,6 @@ namespace LembretesDTI.Controllers
             return Redirect("https://localhost:7217/");
         }
          
-        //Remocao do lembrete
         [HttpPost]
         public IActionResult RemoveNotes(int id)
         {
