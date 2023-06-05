@@ -31,4 +31,5 @@ O sistema foi desenvolvido para o desafio técnico realizado pela DTI Digital. N
 - Clean code
 
 ## Instruções para executar o Sistema:
-1- 
+1 - Deve-se clonar o projeto através do link: https://github.com/Pedrohccma/Teste-DTI---Lembretes.git , ou inicializar o código utilizando o Microsoft Visual Studio
+2 - Executar a solução, sendo direcionado para a página inicial, onde poderá realizar o cadastro de lembretes, e a visualização da lista contendo os lembretes criados
