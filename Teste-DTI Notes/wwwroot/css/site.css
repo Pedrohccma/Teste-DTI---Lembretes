@@ -83,4 +83,24 @@ input{
 }
 
 .secundary-content-list {
+
+}
+
+.date-design {
+    font-family: 'Sarala', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 30px;
+   
+}
+
+.btn-remove {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    margin-left: 10px;
+    border: none;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 400;
 }

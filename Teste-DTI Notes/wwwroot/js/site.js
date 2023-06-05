@@ -2,96 +2,126 @@
     GetAllNotes();
 
     $("#add-new-note").click(function () {
-        GetAllNotes();
-    });
+        let name = document.getElementById("name").value;
+        let date = document.getElementById("date").value;
 
-    $("#add-new-note").click(function () {
-        var name = document.getElementById("name").value;
-        var date = document.getElementById("date").value;
+        let errorMessage = AddNoteValidations(name, date);
 
-        $.ajax({
-            type: "POST",
-            url: "/Note/AddNotes",
-            data: { name: name, date: date },
-            success: function (result) {
-                GetAllNotes();
-            },
-            error: function (error) {
-                return error
-            }
-        });
-    });
-
-    function GetAllNotes() {
-        $.ajax({
-            type: "GET",
-            url: "/Note/GetNotes",
-            success: function (result) {
-                showNotes(result);
-            },
-            error: function (error) {
-                return error
-            }
-        });
-    }
-
-    function showNotes(notes) {
-        $("#note-list").empty();
-
-        if (notes.length === 0) {
-            var alertEmptyList = $("<p>").text("Não foram encontrados lembretes!");
-            $("#note-list").append(alertEmptyList);
+        if (errorMessage != null) {
+            swal(errorMessage, { icon: "error" })
             return;
         }
 
-        var noteGroup = {};
+        AddNotes(name, date);
+    });
+});
 
-        for (var i = 0; i < notes.length; i++) {
-            var note = notes[i];
-            var data = new Date(note.date).toLocaleDateString('en-GB');
+function GetAllNotes() {
+    $.ajax({
+        type: "GET",
+        url: "/Note/GetNotes",
+        success: function (notes) {
+            ShowNotes(notes);
+        },
+        error: function (error) {
+            return error;
+        }
+    });
+}
 
-            if (!noteGroup[data]) {
-                noteGroup[data] = [];
-            }
+function AddNotes(name, date) {
+    $.ajax({
+        type: "POST",
+        url: "/Note/AddNotes",
+        data: { name: name, date: date },
+        success: function () {
+            GetAllNotes();
+        },
+        error: function (error) {
+            console.log(error)
+            swal(error.responseText, { icon: "error" })
+        }
+    });
+}
 
-            noteGroup[data].push(note);
+function RemoveNotes(id) {
+    $.ajax({
+        url: "/Note/RemoveNotes",
+        type: "POST",
+        data: { id: id },
+        success: function () {
+            GetAllNotes();
+        },
+        error: function (error) {
+            console.log(error);
+            swal("Erro ao remover lembrete!", { icon: "error" })
+        }
+    });
+}
+
+function ShowNotes(notes) {
+    $("#note-list").empty();
+
+    if (notes.length === 0) {
+        let alertEmptyList = $("<p>").text("Não foram encontrados lembretes!");
+        $("#note-list").append(alertEmptyList);
+        return;
+    }
+
+    let noteGroup = {};
+
+    for (let i = 0; i < notes.length; i++) {
+        let note = notes[i];
+        let data = new Date(note.date).toLocaleDateString('en-GB');
+
+        if (!noteGroup[data]) {
+            noteGroup[data] = [];
         }
 
-        for (var data in noteGroup) {
-            var dayNotes = noteGroup[data];
+        noteGroup[data].push(note);
+    }
 
-            var ul = $("<ul>").text(data);
+    for (let data in noteGroup) {
+        let dayNotes = noteGroup[data];
+
+        let ul = $("<ul>").text(data);
+        ul.addClass("date-design")
+
+        for (let j = 0; j < dayNotes.length; j++) {
+            let dayNote = dayNotes[j];
+
+            let li = $("<li>").text(dayNote.name);
             $("#note-list").append(ul);
+            ul.append(li)
 
-            for (var j = 0; j < dayNotes.length; j++) {
-                var dayNote = dayNotes[j];
-
-                var li = $("<li>").text(dayNote.name);
-                $("#note-list").append(li);
-
-                var bttnRemove = $("<button>").text("Remover");
-                bttnRemove.data("id", dayNote.id);
-                bttnRemove.click(function () {
-                    var id = $(this).data("id");
-                    RemoveNotes(id);
-                });
-                $("#note-list").append(bttnRemove);
-            }
-        }
-
-        function RemoveNotes(id) {
-            $.ajax({
-                url: "/Note/RemoveNotes",
-                type: "POST",
-                data: { id: id },
-                success: function () {
-                    GetAllNotes();
-                    return Error
-                },
-                error: function (error) {
-                    console.log(error);
-                }
+            let bttnRemove = $("<button>").text("X");
+            bttnRemove.addClass("btn-remove")
+            bttnRemove.data("id", dayNote.id);
+            bttnRemove.click(function () {
+                let id = $(this).data("id");
+                RemoveNotes(id);
             });
+            li.append(bttnRemove)
         }
     }
-});
+}
+
+function AddNoteValidations(name, date) {
+
+    if (date == null || date == "") {
+        return "O campo data é obrigatório";
+    }
+
+    if (name == null || name == "") {
+        return "O campo nome é obrigatório";
+    }
+
+    let dateAsDateTime = new Date(date);
+
+    if (dateAsDateTime < Date.now()) {
+        return "A data informada deve ser posterior a data de hoje"
+    }
+
+    return null;
+
+}
